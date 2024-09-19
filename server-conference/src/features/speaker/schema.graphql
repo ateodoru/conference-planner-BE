@@ -1,0 +1,23 @@
+type Speaker {
+  id: Id!
+  name: String!
+  nationality: String
+  rating: Float
+  phoneNumber: String
+  conferences: [ConferenceXSpeakers!]!
+}
+
+type Conference {
+  id: Id!
+  title: String!
+}
+
+type ConferenceXSpeakers {
+  conference: Conference!
+  isMainSpeaker: Boolean!
+}
+
+type Query {
+  speakers: [Speaker!]!
+  speaker(id: Id!): Speaker
+}

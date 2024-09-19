@@ -1,0 +1,95 @@
+type Speaker {
+  id: Int!
+  name: String!
+  nationality: String!
+  rating: Float
+  phoneNumber: String
+  isMainSpeaker: Boolean
+}
+
+type Location {
+  id: Int!
+  name: String!
+  address: String
+  country: Country!
+  county: County!
+  city: City!
+  latitude: Float
+  longitude: Float
+}
+
+type Status {
+  id: Int!
+  name: String!
+  code: String
+}
+
+type Conference {
+  id: Int!
+  name: String
+  startDate: DateTime!
+  endDate: DateTime!
+  organizerEmail: String!
+  type: Type
+  category: Category
+  speakers: [Speaker!]!
+  location: Location
+  status(userEmail: String!): Status
+}
+
+input ConferenceFilterInput {
+  startDate: DateTime
+  endDate: DateTime
+}
+
+input LocationInput {
+  id: Int
+  name: String!
+  address: String!
+  cityId: Int!
+  countyId: Int!
+  countryId: Int!
+  latitude: Float
+  longitude: Float
+}
+
+input SpeakerInput {
+  id: Int
+  name: String!
+  nationality: String!
+  rating: Float!
+  phoneNumber: String!
+  isMainSpeaker: Boolean
+}
+
+input ConferenceInput {
+  id: Int
+  name: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  organizerEmail: String!
+  typeId: Int!
+  categoryId: Int!
+  location: LocationInput!
+  speakers: [SpeakerInput!]!
+  deletedSpeakers: [Int!]
+}
+
+input AttendeeInput {
+  attendeeEmail: String!
+  conferenceId: Int!
+  statusId: Int!
+}
+
+extend type Query {
+  # returneaza o lista de obiecte de tipul declarat mai sus
+  conferenceList(filters: ConferenceFilterInput, userEmail: String!): [Conference]
+  conference(id: Int!): Conference
+  speakerList: [Speaker!]!
+}
+
+extend type Mutation {
+  saveConference(input: ConferenceInput!): Conference
+  changeAttendanceStatus(input: AttendeeInput!): String
+  deleteConference(id: Int!): String
+}
