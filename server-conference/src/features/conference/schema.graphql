@@ -24,6 +24,13 @@ type Status {
   code: String
 }
 
+type Attendee {
+  id: Int!
+  attendeeEmail: String!
+  statusId: Int!
+  name: String
+}
+
 type Conference {
   id: Int!
   name: String
@@ -35,6 +42,7 @@ type Conference {
   speakers: [Speaker!]!
   location: Location
   status(userEmail: String!): Status
+  attendees: [Attendee!]!
 }
 
 input ConferenceFilterInput {
@@ -58,7 +66,7 @@ input SpeakerInput {
   name: String!
   nationality: String!
   rating: Float!
-  phoneNumber: String!
+  phoneNumber: String
   isMainSpeaker: Boolean
 }
 

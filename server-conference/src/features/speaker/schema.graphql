@@ -1,23 +1,26 @@
 type Speaker {
-  id: Id!
+  id: Int!
   name: String!
   nationality: String
   rating: Float
   phoneNumber: String
-  conferences: [ConferenceXSpeakers!]!
+  conferences: [ConferenceXSpeakers!]
 }
 
 type Conference {
-  id: Id!
-  title: String!
+  id: Int!
+  name: String!
 }
 
 type ConferenceXSpeakers {
+  id: Int!
+  conferenceId: Int
+  speakerId: Int
   conference: Conference!
-  isMainSpeaker: Boolean!
+  isMainSpeaker: Boolean
 }
 
 type Query {
-  speakers: [Speaker!]!
-  speaker(id: Id!): Speaker
+  speakerList: [Speaker!]!
+  speaker(id: Int!): Speaker
 }

@@ -49,6 +49,12 @@ const ConferenceQueryResolver = {
         .conference.findUnique({ where: { id } })
         .conferenceXSpeaker({ include: { speaker: true } })
       return map(({ isMainSpeaker, speaker }) => ({ isMainSpeaker, ...speaker }), result)
+    },
+
+    attendees: async ({ id }) => {
+      return prisma().conferenceXAttendee.findMany({
+        where: { conferenceId: id }
+      })
     }
   },
 
